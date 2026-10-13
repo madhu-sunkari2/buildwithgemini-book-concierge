@@ -4,7 +4,8 @@
 
 [![Live App](https://img.shields.io/badge/Live%20Demo-Cloud%20Run-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://book-concierge-frontend-796910223127.us-central1.run.app)
 
-🔗 **Try the Live App on Cloud Run**: [https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)
+🔗 **Live Demo (Active during workshop)**: [https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)  
+*(Note: Deployed on a temporary Google Cloud workshop sandbox. To run or deploy permanently on your own GCP account, see the setup instructions below).*
 
 ![Demo](assets/demo.gif)
 
