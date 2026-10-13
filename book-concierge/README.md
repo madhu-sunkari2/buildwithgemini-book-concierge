@@ -4,8 +4,10 @@
 
 [![Live App](https://img.shields.io/badge/Live%20Demo-Cloud%20Run-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://book-concierge-frontend-796910223127.us-central1.run.app)
 
-🔗 **Live Demo (Active during workshop)**: [https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)  
-*(Note: Deployed on a temporary Google Cloud workshop sandbox. To run or deploy permanently on your own GCP account, see the setup instructions below).*
+> [!WARNING]
+> **Ephemeral Workshop Link**: The live Cloud Run demo link ([https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)) is hosted on a temporary Google Cloud workshop workstation and will terminate when the lab session expires.
+>
+> 📽️ **Permanent Demonstration**: Watch the recorded, looping GIF below showing full end-to-end functionality, or follow the [Running Locally](#-running-locally) instructions to run or deploy the agent on your own GCP account.
 
 ![Demo](assets/demo.gif)
 
