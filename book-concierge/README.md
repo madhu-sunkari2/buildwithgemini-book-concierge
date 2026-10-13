@@ -2,6 +2,10 @@
 
 > An agent-first literary concierge and reading companion built on Google Cloud's Agent Development Kit (ADK) and Gemini models.
 
+[![Live App](https://img.shields.io/badge/Live%20Demo-Cloud%20Run-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://book-concierge-frontend-796910223127.us-central1.run.app)
+
+🔗 **Try the Live App on Cloud Run**: [https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)
+
 ![Demo](assets/demo.gif)
 
 ---
