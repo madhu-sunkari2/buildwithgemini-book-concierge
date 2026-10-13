@@ -1,198 +1,127 @@
-<div align="center">
+# 📖 Book Concierge
 
-<img src="assets/build-with-gemini-banner.png" alt="Build with Gemini" width="100%" />
+> An agent-first literary concierge and reading companion built on Google Cloud's Agent Development Kit (ADK) and Gemini models.
 
-# 🚀 Build with Gemini · Track 3
+[![Live App](https://img.shields.io/badge/Live%20Demo-Cloud%20Run-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://book-concierge-frontend-796910223127.us-central1.run.app)
 
-### The starter kit for Track 3 of the Build with Gemini World Tour, and a showcase of what participants built with it.
+🔗 **Live Demo (Active during workshop)**: [https://book-concierge-frontend-796910223127.us-central1.run.app](https://book-concierge-frontend-796910223127.us-central1.run.app)  
+*(Note: Deployed on a temporary Google Cloud workshop sandbox. To run or deploy permanently on your own GCP account, see the setup instructions below).*
 
-Clone this repo, open [Antigravity](https://antigravity.google), and build your own agent-first app on Google Cloud. Every project in the [gallery below](#-featured-projects) was built the same way: prototyped with Antigravity and `agents-cli`, equipped with Memory, tools, and storage, deployed to Agent Platform, and given a face on Cloud Run.
-
-<br/>
-
-![Build with Gemini](https://img.shields.io/badge/Build%20with%20Gemini-World%20Tour-4285F4?logo=google&logoColor=white)
-![Track 3](https://img.shields.io/badge/Track%203-Agent--First%20Apps-EA4335)
-![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Agent%20Platform-4285F4?logo=googlecloud&logoColor=white)
-![Built with ADK](https://img.shields.io/badge/Built%20with-ADK%20%2B%20agents--cli-34A853)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
-![Projects](https://img.shields.io/badge/Projects-8-blue)
-
-<sub>📖 <a href="https://cszhu.github.io/build-with-gemini/">Lab Guide</a> · 🛠️ <a href="https://google.github.io/agents-cli/guide/getting-started/">agents-cli</a> · 🤖 <a href="https://google.github.io/adk-docs/">ADK</a></sub>
-
-</div>
+![Demo](assets/demo.gif)
 
 ---
 
-## 📚 Table of Contents
+## 🌟 Overview
 
-- [🧩 Anatomy of a Track 3 Project](#-anatomy-of-a-track-3-project)
-- [📂 Featured Projects](#-featured-projects)
-  - [🛍️ Commerce & Marketplace Agents](#️-commerce--marketplace-agents)
-  - [🍳 Food & Recipe Agents](#-food--recipe-agents)
-  - [✈️ Travel & Local Agents](#️-travel--local-agents)
-  - [💪 Health, Fitness & Wellness Agents](#-health-fitness--wellness-agents)
-  - [📚 Learning & Knowledge Agents](#-learning--knowledge-agents)
-  - [🎨 Creative & Media Agents](#-creative--media-agents)
-  - [🏢 Productivity & Enterprise Agents](#-productivity--enterprise-agents)
-  - [🧪 Experimental & Other](#-experimental--other)
-- [🧠 What's in this Repo](#-whats-in-this-repo)
-- [🧰 Build Your Own](#-build-your-own)
-- [📚 Resources](#-resources)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
+**Book Concierge** is an intelligent reading companion and book management assistant. Built with Google's **Agent Development Kit (ADK)** and powered by **Gemini 3.8 Flash**, Book Concierge helps readers track their reading habits, catalog books, discover trending titles, retrieve external library records, and dynamically generate custom cover artwork and cinematic video trailers.
 
 ---
 
-## 🧩 Anatomy of a Track 3 Project
+## 🛠️ Implemented Capabilities & Wired Cloud Services
 
-Every app in this collection is built from the same set of Google Cloud building blocks introduced in the lab. Once you understand this shape, you can read any project here at a glance:
+Every capability listed below is implemented in code and wired to active services:
 
-| Layer | What it does | Powered by |
+| Layer / Service | Wired Component | What It Does |
 |---|---|---|
-| 🤖 **The Agent** | The core reasoning loop | [ADK](https://google.github.io/adk-docs/) + [`agents-cli`](https://google.github.io/agents-cli/guide/getting-started/), scaffolded with [Antigravity](https://antigravity.google) |
-| 🧠 **Memory** | Remembers facts across sessions | [Agent Platform Memory Bank](https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale/memory-bank) |
-| 🗄️ **Structured data** | Inventory, records, lists | [Firestore](https://console.cloud.google.com/firestore) |
-| 🖼️ **Files & blobs** | Images, media, assets | [Cloud Storage](https://console.cloud.google.com/storage) |
-| 🔧 **Tools** | Take real actions and fetch real data | ADK function tools |
-| 🎨 **Media generation** | Creates images (and video) on demand | `gemini-3.1-flash-lite-image` (Nano Banana 2 Lite) · Omni (video) |
-| 🧪 **Code sandbox** | Safely runs generated code | Agent Platform code execution |
-| 🪟 **Agent-first UI** | Cards and tables instead of plain text | [A2UI](https://adk.dev/integrations/a2ui/) |
-| 🌐 **Frontend** | A shareable web face | FastAPI proxy on [Cloud Run](https://cloud.google.com/run) |
+| 🤖 **Agent Reasoning** | `Gemini 3.8 Flash` via ADK | Multi-turn conversational reasoning loop running in `global` location |
+| 🧠 **Cross-Session Memory** | **Vertex AI Memory Bank** | Long-term memory persistence across sessions via `PreloadMemoryTool` and `generate_memories_callback` (`add_session_to_memory`) |
+| 🗄️ **Structured Database** | **Google Cloud Firestore** | Stores catalog items, reading lists (`want_to_read`, `reading`, `read`), genres, and user ratings |
+| 🖼️ **Public Asset Storage** | **Google Cloud Storage** | Dedicated bucket storing uploaded cover images (`covers/`) and video trailers (`trailers/`) with public HTTPS URLs |
+| 🎨 **Cover Art Generation** | `gemini-3.1-flash-lite-image` | On-demand book cover illustration generation saved to session artifacts and Cloud Storage |
+| 🎬 **Cinematic Video Trailers** | `gemini-omni-flash-preview` | Short atmospheric video teaser generator for books, saved to session artifacts and Cloud Storage |
+| 🪟 **Agent-First UI** | **A2UI v0.8** (Basic Catalog) | Renders structured response cards, columns, metadata, and book cover images directly in the UI |
+| 🌐 **Web Frontend** | **FastAPI + Cloud Run** | Lightweight asynchronous web client and A2A proxy with custom dialogue theme, typing indicator, quick prompt pills, and an image lightbox modal |
 
 ---
 
-## 📂 Featured Projects
+## 🔧 Registered Agent Tools
 
-A showcase of what workshop participants built with this lab. Entries are added here from the swag and gallery submission form after each event, so the categories below start empty and fill in over time. Browse them for inspiration, or [submit your own](#-contributing) once you've published your project with the `publish-to-github` skill.
+The agent (`app/agent.py`) is equipped with the following active tools implemented in `app/tools.py`:
 
-<!--
-Add one entry per project, in this format:
-- 🌿 **[Project Name](https://github.com/their-handle/their-repo)**: one-line description of what it does. <br/> <sub>by [@handle](https://github.com/handle)</sub>
+- **`list_books(genre, status, limit)`**: Queries Firestore for books filtered by reading status (`want_to_read`, `reading`, `read`) or genre.
+- **`search_books(query, limit)`**: Searches local Firestore catalog records matching title or author keywords.
+- **`get_book_details(book_id)`**: Fetches complete metadata for a specific book ID from Firestore.
+- **`add_or_update_book(title, author, genre, ...)`**: Adds a new book or updates existing catalog records in Firestore.
+- **`update_reading_status(book_id, status, rating)`**: Updates progress status and star ratings in Firestore.
+- **`get_trending_books(subject, limit)`**: Fetches real-time trending literary works from the Open Library Subject API.
+- **`search_online_books(query, limit)`**: Queries Open Library search API for public external book records.
+- **`generate_book_cover(title, description, tool_context)`**: Generates high-resolution cover artwork using `gemini-3.1-flash-lite-image`, registers it in session artifacts, and uploads it to Cloud Storage.
+- **`generate_book_trailer(title, theme, tool_context)`**: Generates short cinematic video teaser trailers using `gemini-omni-flash-preview`, saves to session artifacts, and uploads to Cloud Storage.
 
-Bump the "Projects" badge count at the top when you add one.
--->
-
-### 🛍️ Commerce & Marketplace Agents
-
-### 🍳 Food & Recipe Agents
-
-- 🥫 **[Smart Pantry Recipe Concierge](https://github.com/matthewrose/buildwithgemini-smart-pantry-recipe-concierge)**: Tracks your pantry and recommends recipes grounded in a real recipe corpus. <br/> <sub>by [@matthewrose](https://github.com/matthewrose)</sub>
-
-### ✈️ Travel & Local Agents
-
-- ⛈️ **[SafeStageWX](https://github.com/felix1028/buildwithgemini-safestagewx)**: An agentic mobile app that helps event planners identify weather threats and climate risks for an event given its date and location, providing tailored preparedness timelines from months out down to hourly day-of forecasts. <br/> <sub>by [@felix1028](https://github.com/felix1028)</sub>
-- 🌇 **[Sidewalk & Sun](https://github.com/OlafHaalstra/buildwithgemini-sidewalk-and-sun)**: Recommends sunny or shaded NYC spots from a curated 500-venue corpus, plotted on an interactive map. <br/> <sub>by [@OlafHaalstra](https://github.com/OlafHaalstra)</sub>
-
-### 💪 Health, Fitness & Wellness Agents
-
-- 🏊 **[TriCoach AI](https://github.com/common-aman/buildwithgemini-tricoach-ai)**: A triathlon coach that logs workouts, computes training zones, and generates motivational visuals. <br/> <sub>by [@common-aman](https://github.com/common-aman)</sub>
-
-### 📚 Learning & Knowledge Agents
-
-- 🎤 **[Interview Coach (PrepPal)](https://github.com/VineethBaradi/buildwithgemini-interview-coach)**: A mock-interview coach that runs LLM-driven practice sessions from a Firestore question bank and gives performance feedback. <br/> <sub>by [@VineethBaradi](https://github.com/VineethBaradi)</sub>
-
-### 🎨 Creative & Media Agents
-
-### 🏢 Productivity & Enterprise Agents
-
-- 🔧 **[GitCraft](https://github.com/fpobletemu/buildwithgemini-gitcraft)**: A developer git assistant that inspects your repo and drafts Conventional-Commits-style messages, grounded in a commit-style guide. <br/> <sub>by [@fpobletemu](https://github.com/fpobletemu)</sub>
-- 🖥️ **[IT Helpdesk Agent](https://github.com/NaweedAhmadi/buildwithgemini-it-helpdesk-agent)**: An IT support assistant that answers from a knowledge base and remembers context across sessions, with a ticket dashboard UI. <br/> <sub>by [@NaweedAhmadi](https://github.com/NaweedAhmadi)</sub>
-
-### 🧪 Experimental & Other
-
-- 🃏 **[Poker Agent](https://github.com/jakecho1108/buildwithgemini-poker-agent)**: A poker trainer with a real 800-iteration Monte Carlo equity engine and strategy tips grounded in a poker playbook. <br/> <sub>by [@jakecho1108](https://github.com/jakecho1108)</sub>
+*(Note: Earlier project brief concepts like Guilt-O-Meter score calculators and procrastination penalties from the brainstorming exercise are planned, not yet implemented).*
 
 ---
 
-## 🧠 What's in this Repo
+## 🚀 Running Locally
 
-The `.agents/` folder teaches Antigravity how to build agents on Google Cloud.
+### Prerequisites
 
-### Skills
+1. Python 3.11+
+2. [uv](https://docs.astral.sh/uv/) package manager
+3. [Google Cloud CLI](https://cloud.google.com/sdk/docs/install) (`gcloud`) authenticated with access to Firestore and Vertex AI:
+   ```bash
+   gcloud auth login
+   gcloud auth application-default login
+   gcloud config set project <your-project-id>
+   ```
 
-A **skill** is a bundle of instructions that loads automatically when it's relevant, so the agent gets the workflow right in fewer steps instead of rediscovering it each time.
+### 1. Install Dependencies
 
-| Skill | What it does |
-| --- | --- |
-| [`pick-your-agent-project`](.agents/skills/pick-your-agent-project/SKILL.md) | Brainstorm your app idea and write a project brief |
-| [`troubleshoot-lab-setup`](.agents/skills/troubleshoot-lab-setup/SKILL.md) | Verify your environment and fix common setup errors |
-| [`memory-bank-setup`](.agents/skills/setup-memory-bank/SKILL.md) | Add cross-session memory to your agent with Vertex AI Memory Bank |
-| [`enable-a2ui`](.agents/skills/enable-a2ui/SKILL.md) | Make your agent reply with rich UI cards (A2UI) in the ADK dev UI |
-| [`build-agent-frontend`](.agents/skills/build-agent-frontend/SKILL.md) | Generate a FastAPI chat frontend and ship it to Cloud Run |
-| [`record-demo`](.agents/skills/record-demo/SKILL.md) | Record a branded demo video of your agent, with an optional AI soundtrack |
-| [`publish-to-github`](.agents/skills/publish-to-github/SKILL.md) | Publish your finished project to your own GitHub and submit it for swag |
-
-### Pre-configured tools (MCP)
-
-[`.agents/mcp_config.json`](.agents/mcp_config.json) wires up two [Model Context Protocol](https://modelcontextprotocol.io/) servers that authenticate with your gcloud credentials, so the agent can look things up instead of guessing:
-
-- **Firebase**: work directly with Firestore and other Firebase services
-- **Google Developer Knowledge**: grounded access to Google's official docs (Cloud, Firebase, ADK, Agent Platform)
-
-### Layout
-
-```text
-.agents/
-├── mcp_config.json    # Firebase + Developer Knowledge MCP servers
-├── rules/             # workspace rules (only deploy when asked)
-└── skills/            # the workshop skills listed above
-```
-
----
-
-## 🧰 Build Your Own
-
-The full, step-by-step walkthrough lives on the **[lab guide](https://cszhu.github.io/build-with-gemini/)**. This is the short version.
-
-**Prerequisites** (the lab workstation comes with all of this pre-installed; you'll need it if you're running on your own machine):
-
-- A **Google Cloud project** with billing enabled
-- **[Antigravity](https://antigravity.google)** (`agy`), the coding agent that loads the skills above
-- **[agents-cli](https://google.github.io/agents-cli/guide/getting-started/)**, built on the [Agent Development Kit (ADK)](https://google.github.io/adk-docs/)
-- Authenticated gcloud: `gcloud auth login` and `gcloud auth application-default login`
-- A personal **GitHub account** for the final publish-and-submit step
-
-**Quickstart:**
+From the project root:
 
 ```bash
-git clone https://github.com/cszhu/build-with-gemini
-cd build-with-gemini
-agy
+cd book-concierge
+uv sync
 ```
 
-On startup, Antigravity scans the `.agents/` folder and loads the skills and tools above automatically. In the AGY prompt:
+### 2. Run the Agent Playground
 
-```text
-/skills            # see the installed skills
-/mcp               # confirm the firebase + google-developer-knowledge tools are connected
+To interact with the raw ADK agent and test tools in the ADK development environment:
+
+```bash
+uv tool run google-agents-cli playground
 ```
 
-```text
-Verify my setup.   # runs the troubleshoot-lab-setup skill to check your environment
+### 3. Run the Web Frontend & Proxy
+
+To run the custom chat frontend locally:
+
+```bash
+cd frontend
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+# Set your deployed reasoning engine resource name and agent directory
+export AGENT_ENGINE_RESOURCE_NAME="projects/<project-id>/locations/<location>/reasoningEngines/<id>"
+export AGENT_DIRECTORY="app"
+
+uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 ```
 
-Then follow the [lab guide](https://cszhu.github.io/build-with-gemini/) to design, build, deploy, and share your agent, start to finish.
+Then open your browser to the local server port to chat with Book Concierge.
 
 ---
 
-## 📚 Resources
+## 🚢 Deployment
 
-- **[Lab guide](https://cszhu.github.io/build-with-gemini/)**: the step-by-step workshop
-- [Antigravity](https://antigravity.google)
-- [agents-cli](https://google.github.io/agents-cli/guide/getting-started/)
-- [Agent Development Kit (ADK)](https://google.github.io/adk-docs/)
-- [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform)
+### Deploying Agent to Vertex AI Agent Runtime
 
----
+Deploy the agent logic using `agents-cli`:
 
-## 🤝 Contributing
+```bash
+uv tool run google-agents-cli deploy
+```
 
-**Built something?** Publish it with the `publish-to-github` skill and submit it through the form it gives you. Submissions get you swag, and standout projects get added to the [Featured Projects](#-featured-projects) gallery above.
+### Deploying Frontend to Cloud Run
 
-**Found a bug?** If you hit a rough edge in a skill or the lab, please [open an issue](https://github.com/cszhu/build-with-gemini/issues).
+Containerize and deploy the FastAPI frontend proxy to Cloud Run:
 
----
-
-## 📄 License
-
-This is not an officially supported Google product and is provided for the Build with Gemini workshop for demonstration purposes only.
+```bash
+cd frontend
+gcloud run deploy book-concierge-frontend \
+  --source . \
+  --region us-central1 \
+  --set-env-vars AGENT_ENGINE_RESOURCE_NAME="projects/<project-id>/locations/<location>/reasoningEngines/<id>",AGENT_DIRECTORY="app" \
+  --allow-unauthenticated
+```
